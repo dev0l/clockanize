@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Login</title>
+
+  <!--/*/ <th:block th:include="fragments.html :: head">
+      </th:block> /*/-->
+
+</head>
+
+<body class="login-img-body">
+
+  <div class="container">
+
+    <form class="login-form" th:action="@{/login}" method="post">
+
+      <div style="text-align:center; font-size:20px; color:green; font-weight:bold">
+        <span th:utext="${message}"></span>
+      </div>
+
+      <div class="login-wrap">
+        <p class="login-img"><i class="bi bi-lock"></i></p>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" placeholder="Username" autofocus name="username">
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="bi bi-key"></i></span>
+          <input type="password" class="form-control" placeholder="Password" name="password">
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+          <span class="float-end"><a id="forgot-password" href="#"> Forgot Password?</a></span>
+        </div>
+        <button class="btn btn-primary btn-lg col-12" type="submit">Login</button>
+        <a th:href="@{/register}" class="btn btn-info btn-lg col-12">Sign Up</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+
+</html>

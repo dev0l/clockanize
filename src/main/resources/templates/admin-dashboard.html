@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Home</title>
+
+  <!--/*/ <th:block th:include="fragments.html :: head">
+      </th:block> /*/-->
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <!--<div th:replace="fragments/header"></div>-->
+  <!--/*/ <th:block th:insert="fragments.html :: header"></th:block> /*/-->
+
+  <!-- ======= Sidebar ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: aside"></th:block> /*/-->
+
+  <!-- ======= Main ======= -->
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <div class="col-lg-12" id="project-card" th:each="project : ${projects}">
+              <div class="card text-center">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${project.name}">Title</h5>
+                  <p class="card-text" th:text="${project.description}">Text</p>
+                  <a class="btn btn-primary" id="edit-button" th:href="@{/projects/edit/(id=${project.id})}">Edit
+                    Project</a>
+                </div>
+                <div class="card-footer text-muted pcd" th:text="${project.lastModifiedDate}"></div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+          <div class="row">
+
+            <div class="col-right" th:each="project : ${projects}">
+              <p>Project: <span th:text="${project.name}"></span></p>
+              <p>Total Reports: <span th:text="${project.timeCards.size()}"></span></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: footer"></th:block> /*/-->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Custom JS Files -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+
+</body>
+
+</html>

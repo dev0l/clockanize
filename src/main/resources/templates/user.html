@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Users</title>
+
+  <!--/*/ <th:block th:include="fragments.html :: head">
+      </th:block> /*/-->
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: header"></th:block> /*/-->
+
+  <!-- ======= Sidebar ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: aside"></th:block> /*/-->
+
+  <!-- ======= Main ======= -->
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Users</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">Blank</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">New
+          User</button> -->
+          <a type="button" class="btn btn-primary" th:href="@{/register}">New User</a>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Other Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user:${users}">
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.othername}"></td>
+                <td th:text="${user.username}"></td>
+                <td><a th:href="@{'/security/user/edit/'+${user.id}}" class="btn btn-primary"><i
+                      class="bi bi-pencil-square"></i> Manage Roles</a></td>
+                <td>
+                  <div class="btn-group">
+                    <a th:href="@{/users/edit/(id=${user.id})}" class="btn btn-primary" id="edit-button"><i
+                        class="bi bi-pencil-square"></i></a>
+                    <a th:href="@{/users/edit/(id=${user.id})}" class="btn btn-success" id="details-button"><i
+                        class="bi bi-file-text"></i></a>
+                    <a th:href="@{/users/delete/(id=${user.id})}" class="btn btn-danger" id="delete-button"><i
+                        class="bi bi-x-circle"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: footer"></th:block> /*/-->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- ======= Modals ======= -->
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editUser" aria-hidden="true">
+    <form th:action="@{/users/update}" method="PUT" autocomplete="on">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUser">Edit User</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="edit-id" class="col-form-label">Id:</label>
+              <input type="text" class="form-control" id="edit-id" name="id">
+            </div>
+            <div class="form-group">
+              <label for="edit-firstname" class="col-form-label">First Name:</label>
+              <input type="text" class="form-control" id="edit-firstname" name="firstname">
+            </div>
+            <div class="form-group">
+              <label for="edit-lastname" class="col-form-label">Last Name:</label>
+              <input type="text" class="form-control" id="edit-lastname" name="lastname">
+            </div>
+            <div class="form-group">
+              <label for="edit-othername" class="col-form-label">Other Name:</label>
+              <input type="text" class="form-control" id="edit-othername" name="othername">
+            </div>
+            <div class="form-group">
+              <label for="edit-username" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="edit-username" name="username">
+            </div>
+            <div class="form-group">
+              <label for="edit-password" class="col-form-label">Password:</label>
+              <input type="text" class="form-control" id="edit-password" name="password" disabled>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="edit-user-btn">Submit</button>
+            <button type="button" class="btn btn-secondary" id="close-modal" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="projectDetails"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="projectDetails">User Details</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="details-id" class="col-form-label">Id:</label>
+            <input type="text" class="form-control" id="details-id" name="id" readonly>
+          </div>
+          <div class="form-group">
+            <label for="details-description" class="col-form-label">Description:</label>
+            <textarea type="text" class="form-control" id="details-description" name="description" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="details-details" class="col-form-label">Details:</label>
+            <input type="text" class="form-control" id="details-details" name="details" readonly>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Created By:</label>
+            <input type="text" class="form-control" id="createdByDetails" name="createdBy" readonly>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Created Date:</label>
+            <input type="text" class="form-control" id="createdDateDetails" name="createdDate" readonly>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Last Updated By:</label>
+            <input type="text" class="form-control" id="lastModifiedByDetails" name="lastModifiedBy" readonly>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Last Updated On:</label>
+            <input type="text" class="form-control" id="lastModifiedDateDetails" name="lastModifiedDate" readonly>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm delete</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the selected record?
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" id="delete-user-button" href="">Delete</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Custom JS Files -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/user.js"></script>
+
+</body>
+
+</html>

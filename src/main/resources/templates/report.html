@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Reports</title>
+
+  <!--/*/ <th:block th:include="fragments.html :: head">
+      </th:block> /*/-->
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: header"></th:block> /*/-->
+
+  <!-- ======= Sidebar ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: aside"></th:block> /*/-->
+
+  <!-- ======= Main ======= -->
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Reports</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">Blank</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">New
+            Report</button>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Educator</th>
+                <th scope="col">Planned Time</th>
+                <th scope="col">Education Time</th>
+                <th scope="col">Details</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="timeCard:${timeCards}">
+                <td th:text="${timeCard.project_id}"></td>
+                <td th:text="${timeCard.timeCardEmployee.username}"></td>
+                <td th:text="${timeCard.timeCardProject.plannedTime}"></td>
+                <td th:text="${timeCard.timeCardProject.educationTime}"></td>
+                <td th:text="${timeCard.details}"></td>
+                <td>
+                  <div class="btn-group">
+                    <a th:href="@{/time-cards/edit/(id=${timeCard.id})}" class="btn btn-primary" id="edit-button"><i
+                        class="bi bi-pencil-square"></i></a>
+                    <a th:href="@{/time-cards/edit/(id=${timeCard.id})}" class="btn btn-success" id="details-button"><i
+                        class="bi bi-file-text"></i></a>
+                    <a th:href="@{/time-cards/delete/(id=${timeCard.id})}" class="btn btn-danger" id="delete-button"><i
+                        class="bi bi-x-circle"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: footer"></th:block> /*/-->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- ======= Modals ======= -->
+
+  <!-- Add Modal -->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addTimeCard" aria-hidden="true">
+    <form th:action="@{/time-cards/add}" method="post" autocomplete="on">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTimeCard">Add Time Card</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="add-project" class="col-form-label">Project:</label>
+              <select class="form-select" id="add-project" name="project_id">
+                <option th:each="project: ${projects}" th:value="${project.id}" th:text="${project.name}">
+                </option>
+              </select>
+              <a th:href="@{/projects}">New Project</a>
+            </div>
+            <div class="form-group">
+              <label for="add-educator" class="col-form-label">Educator:</label>
+              <select class="form-select" id="add-educator" name="employee_id">
+                <option th:each="employee: ${employees}" th:value="${employee.id}" th:text="${employee.lastname}">
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-report-date" class="col-form-label">Date:</label>
+              <input type="date" class="form-control" id="add-report-date" name="reportDate">
+            </div>
+            <div class="form-group">
+              <label for="add-day-of-week" class="col-form-label">Day of Week (OUT OF ORDER):</label>
+              <select class="form-select" id="add-day-of-week" name="weekList">
+                <option selected th:text="${timeCard.getDay()}"></option>
+                <option th:each="weekList: ${weekLists}" th:value="${weekList}" th:text="${weekList}">
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-start-time" class="col-form-label">Start:</label>
+              <input type="time" class="form-control" step="1" id="add-start-time" name="startTime">
+            </div>
+            <div class="form-group">
+              <label for="add-end-time" class="col-form-label">End:</label>
+              <input type="time" class="form-control" step="1" id="add-end-time" name="endTime">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="add-time-card-btn">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editTimeCard" aria-hidden="true">
+    <form th:action="@{/time-cards/update}" method="PUT">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTimeCard">Edit Time Card</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="edit-id" class="col-form-label">Id: </label>
+              <input type="text" class="form-control" id="edit-id" name="id">
+            </div>
+            <div class="form-group">
+              <label for="edit-project" class="col-form-label">Project:</label>
+              <input type="text" class="form-control" id="edit-project" name="project_id">
+            </div>
+            <div class="form-group">
+              <label for="edit-educator" class="col-form-label">Educator:</label>
+              <input type="text" class="form-control" id="edit-educator" name="educator_id">
+            </div>
+            <div class="form-group">
+              <label for="edit-report-date" class="col-form-label">Date:</label>
+              <input type="date" class="form-control" id="edit-report-date" name="reportDate" readonly>
+            </div>
+            <div class="form-group">
+              <label for="edit-day-of-week" class="col-form-label">Day of Week (OUT OF ORDER):</label>
+              <select class="form-select" id="edit-day-of-week" name="weekList">
+                <option selected th:text="${timeCard.getDay()}"></option>
+                <option th:each="weekList: ${weekLists}" th:value="${weekList}" th:text="${weekList}">
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-start-time" class="col-form-label">Start:</label>
+              <input type="time" class="form-control" step="1" id="edit-start-time" name="startTime">
+            </div>
+            <div class="form-group">
+              <label for="edit-end-time" class="col-form-label">End:</label>
+              <input type="time" class="form-control" step="1" id="edit-end-time" name="endTime">
+            </div>
+            <div class="form-group">
+              <label for="edit-details" class="col-form-label">Details:</label>
+              <input type="text" class="form-control" id="edit-details" name="details">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="edit-time-card-btn">Submit</button>
+            <button type="button" class="btn btn-secondary" id="close-modal" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Deletion</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this Time Card?</p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" id="delete-time-card-button" href="">Delete</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Custom JS Files -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/report.js"></script>
+
+</body>
+
+</html>

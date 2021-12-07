@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Access Denied</title>
+
+  <!--/*/ <th:block th:include="fragments.html :: head">
+      </th:block> /*/-->
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: header"></th:block> /*/-->
+
+  <!-- ======= Sidebar ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: aside"></th:block> /*/-->
+
+  <!-- ======= Main ======= -->
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Access Denied</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+          <li class="breadcrumb-item active">Access Denied</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section" style="text-align: center;">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>You are not authorized</h1>
+          <a th:href="@{/}">Go Back</a>
+        </div>
+      </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <!--/*/ <th:block th:insert="fragments.html :: footer"></th:block> /*/-->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+  <!-- Custom JS Files -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
