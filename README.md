@@ -18,7 +18,7 @@ spring.datasource.password=PASSWORD
 When running the first time use the "CREATE" keyword:
 ```Java
 spring.jpa.hibernate.ddl-auto=create
-´´´
+```
 * After that switch back to "UPDATE" and Run "InitialTest" to populate required Data
 
 * Run the project and, in your browser, navigate to URL: localhost:8080
