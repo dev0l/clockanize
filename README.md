@@ -1,4 +1,6 @@
-# Clockanize - Organised Time Reporting (Prototype - In Development)
+# Clockanize - Organised Time Reporting
+
+Important! This is a prototype / in development!
 
 Clockanize is a Time Tracking Web Application based on Java Spring Boot.
 
