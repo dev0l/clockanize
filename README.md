@@ -29,9 +29,9 @@ spring.jpa.hibernate.ddl-auto=create
 
 [ADMIN]
 
-Username: admin
+Username: **admin**
 
-Password: Admin123
+Password: **Admin123**
 
 [USER]
 
