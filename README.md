@@ -29,15 +29,15 @@ spring.jpa.hibernate.ddl-auto=create
 
 [ADMIN]
 
-Username: **admin**
+**Username:** *admin*
 
-Password: **Admin123**
+**Password:** *Admin123*
 
 [USER]
 
-Username: **test**
+**Username:** *test*
 
-Password: **Test1234**
+**Password:** *Test1234*
 
 ## Technology Stack
 * MySQL - Database used
