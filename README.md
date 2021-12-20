@@ -30,11 +30,13 @@ spring.jpa.hibernate.ddl-auto=create
 [ADMIN]
 
 Username: admin
+
 Password: Admin123
 
 [USER]
 
 Username: test
+
 Password: Test1234
 
 ## Technology Stack
