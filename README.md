@@ -25,13 +25,15 @@ spring.jpa.hibernate.ddl-auto=create
 
 * Run the project and, in your browser, navigate to URL: localhost:8080
 
-Default Login:
+* Default Login:
 
 [ADMIN]
+
 Username: admin
 Password: Admin123
 
 [USER]
+
 Username: test
 Password: Test1234
 
